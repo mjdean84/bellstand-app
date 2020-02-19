@@ -5,7 +5,7 @@ const completedFronts = (props) => {
         <section className={props.class}>
             <h1 className="display-3 text-center">Completed Fronts</h1>
             <hr />
-            <table className="table table-striped text-capitalize">
+            <table className="table table-striped text-capitalize" hidden={props.fronts.length === 0}>
                 <thead>
                     <tr className="hover">
                         <th onClick={() => props.sort('time')}>Requested</th>
@@ -16,8 +16,8 @@ const completedFronts = (props) => {
                         <th onClick={() => props.sort('room')}>Room</th>
                         <th onClick={() => props.sort('name')}>Name</th>
                         <th onClick={() => props.sort('ticket')}>Ticket</th>
-                        <th onClick={() => props.sort('comment')}>Comment</th>
-                        <th onClick={() => props.sort('eliteStatus')}>Elite</th>
+                        <th onClick={() => props.sort('bags')}>Bags</th>
+                        <th onClick={() => props.sort('eliteStatus')}>Membership</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -32,7 +32,7 @@ const completedFronts = (props) => {
                                 <td>{front.room}</td>
                                 <td>{front.name}</td>
                                 <td>{front.ticket}</td>
-                                <td>{front.comment}</td>
+                                <td>{front.bags}</td>
                                 <td>{front.eliteStatus}</td>
                             </tr>
                         )

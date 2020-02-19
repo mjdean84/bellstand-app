@@ -3,7 +3,6 @@ import './App.css';
 
 import TimeClock from './components/TimeClock/TimeClock';
 import Bellman from './components/Bellman/Bellman';
-import StaffTable from './components/StaffTable/StaffTable';
 import Fronts from './components/Fronts/Fronts';
 import Front from './components/Fronts/Front/Front';
 import CompletedFronts from './components/CompletedFronts/CompletedFronts';
@@ -16,7 +15,17 @@ class App extends Component {
         //Hide Elements
         frontsClass: '',
         timeClockClass: '',
-        completedClass: 'd-none',
+        completedClass: '',
+
+        bellmanInputs: {
+            lastName: '',
+            firstName: '',
+            position: '',
+
+            lastNameError: '',
+            firstNameError: '',
+            positionError: '',
+        },
 
         bellmen: [],
         activeIndex: '',
@@ -30,6 +39,7 @@ class App extends Component {
             room: '',
             name: '',
             ticket: '',
+            bags: '',
             comment: '',
             elite: '',
 
@@ -37,7 +47,8 @@ class App extends Component {
             typeError: '',
             roomError: '',
             nameError: '',
-            ticketError: ''
+            ticketError: '',
+            bagsError: ''
         },
 
         completedFronts: [],
@@ -85,31 +96,58 @@ class App extends Component {
     }
 
     //Staff
+    bellmanInputsHandler = (argInput, argValue) => {
+        const input = argInput;
+        const value = argValue;
+        let inputs = this.state.bellmanInputs;
+        if (input === 'lastName') {
+            inputs.lastName = value;
+        }
+        if (input === 'firstName') {
+            inputs.firstName = value;
+        }
+        if (input === 'position') {
+            inputs.position = value;
+        }
+        this.setState({ bellmanInputs: inputs });
+    }
+
+    isValid = (input) => {
+        if (input === '') return false;
+        return true;
+    }
+
     clockInHandler = () => {
-        let last = document.getElementById('lastName').value;
-        let first = document.getElementById('firstName').value;
-        let position = document.getElementById('position').value;
-        if (last === "" || first === "" || position === "") {
-            if (last === "") {
-                document.getElementById('lastNameValidator').classList.remove('d-none');
-            } else document.getElementById('lastNameValidator').classList.add('d-none');
-            if (first === "") {
-                document.getElementById('firstNameValidator').classList.remove('d-none');
-            } else document.getElementById('firstNameValidator').classList.add('d-none');
-            if (position === "") {
-                document.getElementById('positionValidator').classList.remove('d-none');
-            } else document.getElementById('positionValidator').classList.add('d-none');
-        } else {
-            let bellmen = this.state.bellmen;
-            bellmen.push(new Bellman(last, first, position));
-            this.setState({ bellmen: bellmen });
-            document.getElementById('lastNameValidator').classList.add('d-none');
-            document.getElementById('firstNameValidator').classList.add('d-none');
-            document.getElementById('positionValidator').classList.add('d-none');
-            document.getElementById('lastName').value = "";
-            document.getElementById('firstName').value = "";
-            document.getElementById('position').value = "";
-            
+        let inputs = this.state.bellmanInputs;
+        const message = '*Required';
+
+        if (!this.isValid(inputs.lastName) || !this.isValid(inputs.firstName) || !this.isValid(inputs.position)) {
+            if (!this.isValid(inputs.lastName)) inputs.lastNameError = message;
+            else {
+                inputs.lastNameError = '';
+            }
+            if (!this.isValid(inputs.firstName)) inputs.firstNameError = message;
+            else {
+                inputs.firstNameError = '';
+            }
+            if (!this.isValid(inputs.position)) inputs.positionError = message;
+            else {
+                inputs.positionError = '';
+            }
+            this.setState({ bellmanInputs: inputs });
+        }
+        else {
+            const bellman = new Bellman(inputs.lastName, inputs.firstName, inputs.position);
+            inputs= {
+                lastName: '',
+                firstName: '',
+                position: '',
+                lastNameError: '',
+                firstNameError: '',
+                positionError: '',
+            }
+            let bellmen = [...this.state.bellmen, bellman];
+            this.setState({ bellmen: bellmen, bellmanInputs: inputs });
 
         }
     }
@@ -156,6 +194,7 @@ class App extends Component {
         }
 
         bellmen[index].status = status;
+        bellmen[index].statusUpdated = new Date().toLocaleString();
         let activeStatus = status;
 
         this.setState({ bellmen: bellmen, activeStatus: activeStatus, activeIndex: index });
@@ -180,6 +219,9 @@ class App extends Component {
         }
         if (field === 'elite') {
             inputState.elite = value;
+        }
+        if (field === 'bags') {
+            inputState.bags = value;
         }
         this.setState({ frontInputs: inputState });
     }
@@ -211,6 +253,9 @@ class App extends Component {
         if (field === 'elite') {
             front.eliteStatus = value;
         }
+        if (field === 'bags') {
+            front.bags = value;
+        }
         this.setState({ activeFront: front });
     }
 
@@ -218,35 +263,51 @@ class App extends Component {
         if (inputs.type === '' || inputs.room === '' || inputs.name === '') {
             return true;
         }
-        if (inputs.type === 'Check In' && inputs.ticket === '') {
-            return true;
+        if (inputs.type === 'Check In') {
+            if (inputs.ticket === '' || inputs.bags === '') {
+                return true;
+            }
         }
         return false;
     }
 
     addFrontHandler = () => {
-        const inputs = this.state.frontInputs;
+        let inputs = this.state.frontInputs;
         const missingItem = this.validate(inputs);
         if (missingItem) {
             if (inputs.type === '') inputs.typeError = '*Required';
             if (inputs.room === '') inputs.roomError = '*Required';
             if (inputs.name === '') inputs.nameError = '*Required';
-            if (inputs.type === 'Check In' && inputs.ticket === '') inputs.ticketError = '*Required';
+            if (inputs.type === 'Check In') {
+                if (inputs.ticket === '') {
+                    inputs.ticketError = '*Required';
+                }
+                if (inputs.bags === '') {
+                    inputs.bagsError = '*Required';
+                }
+            }
             this.setState({ frontInputs: inputs });
             document.getElementById('addFrontBtn').click();
         } else {
-            const front = new Front(inputs.type, inputs.room, inputs.name, inputs.ticket, inputs.comment, inputs.elite);
+            const front = new Front(inputs.type, inputs.room, inputs.name, inputs.ticket, inputs.bags, inputs.comment, inputs.elite);
             const fronts = [...this.state.fronts, front];
             this.setState({ fronts: fronts });
-            inputs.room = '';
-            inputs.name = '';
-            inputs.ticket = '';
-            inputs.comment = '';
-            inputs.elite = '';
-            inputs.typeError = '';
-            inputs.roomError = '';
-            inputs.nameError = '';
-            inputs.ticketError = '';
+            inputs = {
+                type: '',
+                room: '',
+                name: '',
+                ticket: '',
+                bags: '',
+                comment: '',
+                elite: '',
+
+                typeError: '',
+                roomError: '',
+                nameError: '',
+                ticketError: '',
+                bagsError: ''
+            }
+            
             this.setState({ frontInputs: inputs });
             document.getElementById('frontForm').reset();
         }
@@ -388,13 +449,16 @@ class App extends Component {
                     editInputs={this.editInputsHandler}
                     editType={this.editTypeHandler}
                 />
-                <TimeClock class={this.state.timeClockClass} click={this.clockInHandler} />
-                <StaffTable
+                <TimeClock
+                    class={this.state.timeClockClass}
                     className={this.showTable(this.state.bellmen)}
                     bellmen={this.state.bellmen}
-                    click={this.employeeClickHandler}
                     status={this.state.activeStatus}
+                    bellmanInputs={this.state.bellmanInputs}
+                    bellmanInputsHandler={this.bellmanInputsHandler}
+                    click={this.clockInHandler}
                     staffButtonClick={this.statusHandler}
+                    employeeClick={this.employeeClickHandler}
                 />
                 <CompletedFronts class={this.state.completedClass} fronts={this.state.completedFronts} sort={this.sortCompletedHandler} />
             </div>

@@ -5,6 +5,19 @@ import FrontModal from './FrontModal/FrontModal';
 import EditModal from './EditModal/EditModal';
 
 const fronts = (props) => {
+    let pendingClass;
+    let pendingFronts = 0;
+    props.fronts.forEach(front => {
+        if (front.status === 'Pending') {
+            pendingFronts++;
+        }
+    })
+    if (pendingFronts === 0) {
+        pendingClass = 'd-none';
+    } else {
+        pendingClass = 'd-block';
+    }
+
     let assignedClass;
     let assignedFronts = 0;
     props.fronts.forEach(front => {
@@ -24,7 +37,7 @@ const fronts = (props) => {
                 <h1 className="display-3 text-center">Service Requests</h1>
                 <hr />
                 <button className="btn btn-primary" id="addFrontBtn" data-toggle="modal" data-target="#frontModal">Add Request</button>
-                <div className={props.tableClass(props.fronts)}>
+                <div className={pendingClass}>
                     <h1 className="mt-3">Pending</h1>
                     <table className="table table-hover text-capitalize">
                         <thead className="bg-light">
@@ -34,6 +47,7 @@ const fronts = (props) => {
                                 <th>Last Name</th>
                                 <th>Type</th>
                                 <th>Ticket</th>
+                                <th>Bags</th>
                                 <th>Comment</th>
                                 <th>Membership</th>
                             </tr>
@@ -52,6 +66,7 @@ const fronts = (props) => {
                                             <td>{front.name}</td>
                                             <td>{front.type}</td>
                                             <td>{front.ticket}</td>
+                                            <td>{front.bags}</td>
                                             <td>{front.comment}</td>
                                             <td>{front.eliteStatus}</td>
                                         </tr>
@@ -64,7 +79,7 @@ const fronts = (props) => {
                 </div>
 
                 <div className={assignedClass}>
-                    <h1>Assigned</h1>
+                    <h1 className="mt-3">Assigned</h1>
                     <table className="table table-hover text-capitalize hover">
                         <thead className="bg-light">
                             <tr>
@@ -74,6 +89,7 @@ const fronts = (props) => {
                                 <th>Last Name</th>
                                 <th>Type</th>
                                 <th>Ticket</th>
+                                <th>Bags</th>
                                 <th>Comment</th>
                                 <th>Membership</th>
                             </tr>
@@ -93,6 +109,7 @@ const fronts = (props) => {
                                             <td>{front.name}</td>
                                             <td>{front.type}</td>
                                             <td>{front.ticket}</td>
+                                            <td>{front.bags}</td>
                                             <td>{front.comment}</td>
                                             <td>{front.eliteStatus}</td>
                                         </tr>
@@ -111,9 +128,13 @@ const fronts = (props) => {
                                 <h1 className="modal-title">Complete?</h1>
                             </div>
                             <div className="modal-body text-center">
-                                <button className="btn btn-lg btn-success m-3" onClick={props.confirmCancel} data-dismiss="modal">Yes</button>
-                                <button className="btn btn-lg btn-danger m-3" data-dismiss="modal">No</button>
-                                <button className="btn btn-lg btn-info m-3" onClick={() => props.assignFront('pending')} data-dismiss="modal">Pending</button>
+                                <button className="btn btn-success form-control my-1" onClick={props.confirmCancel}
+                                    data-dismiss="modal">Yes</button>
+                                <button className="btn btn-danger form-control my-1" data-dismiss="modal">No</button>
+                                <button className="btn btn-info form-control my-1" onClick={() => props.assignFront('pending')}
+                                    data-dismiss="modal">Pending</button>
+                                <button className="btn btn-secondary form-control my-1" data-dismiss="modal"
+                                    data-toggle="modal" data-target="#editModal">Edit</button>
                             </div>
                         </div>
                     </div>
@@ -136,6 +157,7 @@ const fronts = (props) => {
                     front={props.activeFront}
                     editInputs={props.editInputs}
                     editType={props.editType}
+                    click={props.editClick}
                 />
             </div>
         </section>

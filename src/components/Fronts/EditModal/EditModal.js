@@ -1,21 +1,32 @@
 import React from 'react';
 
 const editModal = (props) => {
+	let isValid = 'modal';
 	let roomValidator = null;
 	if (props.front.room === '') {
+		isValid = '';
 		roomValidator =
 		<p className="text-danger">*Required</p>
 	}
 
 	let nameValidator = null;
 	if (props.front.name === '') {
+		isValid = '';
 		nameValidator =
 			<p className="text-danger">*Required</p>
 	}
 
 	let ticketValidator = null;
 	if (props.front.ticket === '' && props.front.type === 'Check In') {
+		isValid = '';
 		ticketValidator =
+			<p className="text-danger">*Required</p>
+	}
+
+	let bagsValidator = null;
+	if (props.front.bags === '' && props.front.type === 'Check In') {
+		isValid = '';
+		bagsValidator =
 			<p className="text-danger">*Required</p>
 	}
 
@@ -34,6 +45,14 @@ const editModal = (props) => {
 						onChange={(e) => props.editInputs('ticket', e.target.value)}
 					/>
 					{ticketValidator}
+				</div>
+			</div>
+			<div className="col-md-3">
+				<div className="form-group">
+					<label htmlFor="#numBags">Number of Bags:</label>
+					<input type="number" className="form-control" id="numBags" min="1" value={props.front.bags}
+						onChange={(e) => props.editInputs('bags', e.target.value)} />
+					{bagsValidator}
 				</div>
 			</div>
 		</div>
@@ -104,32 +123,35 @@ const editModal = (props) => {
 								<input type="radio" className="form-check-input" id="platinumRadio" name="frontElite"
 									value="Platinum" checked={props.front.eliteStatus === 'Platinum'}
 									onChange={(e) => props.editInputs('elite', e.target.value)} />Platinum
-                                </label>
+                            </label>
 						</div>
 						<div className="form-check-inline">
 							<label className="form-check-label">
 								<input type="radio" className="form-check-input" id="titaniumRadio" name="frontElite"
 									value="Titanium" checked={props.front.eliteStatus === 'Titanium'}
-									onChange={(e) => props.editInputs('elite', e.target.value)} />Titanium
-                                </label>
+									onChange={(e) => props.editInputs('elite', e.target.value)}
+								/>Titanium
+                            </label>
 						</div>
 						<div className="form-check-inline">
 							<label className="form-check-label">
 								<input type="radio" className="form-check-input" id="ambassadorRadio" name="frontElite"
 									value="Ambassador" checked={props.front.eliteStatus === 'Ambassador'}
-									onChange={(e) => props.editInputs('elite', e.target.value)} />Ambassador
-                                </label>
+									onChange={(e) => props.editInputs('elite', e.target.value)}
+								/>Ambassador
+                            </label>
 						</div>
 						<div className="form-check-inline">
 							<label className="form-check-label">
 								<input type="radio" className="form-check-input" name="frontElite" value=""
 									checked={props.front.eliteStatus === ''}
-									onChange={(e) => props.editInputs('elite', e.target.value)} />None
-                                </label>
+									onChange={(e) => props.editInputs('elite', e.target.value)}
+								/>None
+							</label>
 						</div>
 					</div>
 					<div className="modal-footer">
-						<button className="btn btn-success form-control" data-dismiss="modal">Done</button>
+						<button className="btn btn-success form-control" data-dismiss={isValid}>Done</button>
 					</div>
 				</div>
 			</div>

@@ -51,9 +51,12 @@ const assignModal = (props) => {
                             </table>
                             {noBellmen}
                             <div className="text-center">
-                                <button className="btn btn-success m-3" onClick={() => props.assignBtn('assign')} data-dismiss="modal">Assign</button>
-                                <button className="btn btn-danger m-3" data-dismiss="modal" data-toggle="modal" data-target="#confirmCancelModal">Cancel Front</button>
-                                <button className="btn btn-secondary" id="editBtn" data-dismiss="modal" data-toggle="modal" data-target="#editModal">Edit</button>
+                                <button className="btn btn-success m-3" onClick={() => props.assignBtn('assign')}
+                                    data-dismiss="modal">Assign</button>
+                                <button className="btn btn-danger m-3" data-dismiss="modal" data-toggle="modal"
+                                    data-target="#confirmCancelModal">Cancel Front</button>
+                                <button className="btn btn-secondary" id="editBtn" data-dismiss="modal"
+                                    data-toggle="modal" data-target="#editModal">Edit</button>
                             </div>
                         </div>
                     </div>

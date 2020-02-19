@@ -1,14 +1,14 @@
 import React from 'react';
 
 const frontModal = (props) => {
-
+    /*
     let ticketInput = null;
     if (props.frontInputs.type === 'Check In') {
         ticketInput =
-            <div className="row">
-                <div className="col-md-6">
-                    <div className="form-group">
-                        <label htmlFor="ticketNumber">Ticket:</label>
+        <div className="row">
+            <div className="col-md-6">
+                <div className="form-group">
+                    <label htmlFor="ticketNumber">Ticket:</label>
                     <input
                         type="text"
                         className="form-control"
@@ -17,13 +17,21 @@ const frontModal = (props) => {
                         onChange={(e) => props.frontInputsHandler('ticket', e.target.value)}
                     />
                     <p className="text-danger">{props.frontInputs.ticketError}</p>
-                    </div>
                 </div>
             </div>
+            <div className="col-md-3">
+                <div className="form-group">
+                    <label htmlFor="#numBags">Number of Bags:</label>
+                    <input type="number" className="form-control" id="numBags" min="1"
+                        onChange={(e) => props.frontInputsHandler('bags', e.target.value)} />
+                    <p className="text-danger">{props.frontInputs.bagsError}</p>
+                </div>
+            </div>
+        </div>
     } else {
         ticketInput = null;
     }
-    
+    */
 
     return (
         <form id="frontForm">
@@ -40,12 +48,14 @@ const frontModal = (props) => {
                             <div id="typeRadios">
                                 <div className="form-check-inline">
                                     <label className="form-check-label">
-                                        <input type="radio" className="form-check-input" id="checkInRadio" name="frontType" value="Check In" onChange={() => props.typeSelect('Check In')} />Check In
+                                        <input type="radio" className="form-check-input" id="checkInRadio" name="frontType"
+                                            value="Check In" onClick={() => props.typeSelect('Check In')} />Check In
                                     </label>
                                 </div>
                                 <div className="form-check-inline">
                                     <label className="form-check-label">
-                                        <input type="radio" className="form-check-input" id="checkOutRadio" name="frontType" value="Check Out" onChange={() => props.typeSelect('Check Out')} />Check Out
+                                        <input type="radio" className="form-check-input" id="checkOutRadio" name="frontType"
+                                            value="Check Out" onClick={() => props.typeSelect('Check Out')} />Check Out
                                     </label>
                                 </div>
                                 <p className="text-danger">{props.frontInputs.typeError}</p>
@@ -80,7 +90,32 @@ const frontModal = (props) => {
                                     </div>
                                 </div>
                             </div>
-                            {ticketInput}
+
+                            <div hidden={props.frontInputs.type !== 'Check In'}>
+                                <div className="row">
+                                    <div className="col-md-6">
+                                        <div className="form-group">
+                                            <label htmlFor="ticketNumber">Ticket:</label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                id="ticketNumber"
+                                                placeholder="Ticket #"
+                                                onChange={(e) => props.frontInputsHandler('ticket', e.target.value)}
+                                            />
+                                            <p className="text-danger">{props.frontInputs.ticketError}</p>
+                                        </div>
+                                    </div>
+                                    <div className="col-md-3">
+                                        <div className="form-group">
+                                            <label htmlFor="#numBags">Number of Bags:</label>
+                                            <input type="number" className="form-control" id="numBags" min="1"
+                                                onChange={(e) => props.frontInputsHandler('bags', e.target.value)} />
+                                            <p className="text-danger">{props.frontInputs.bagsError}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div className="row">
                                 <div className="col">
                                     <div className="form-group">
@@ -106,29 +141,38 @@ const frontModal = (props) => {
                                 </div>
                                 <div className="form-check-inline">
                                     <label className="form-check-label">
-                                        <input type="radio" className="form-check-input" id="platinumRadio" name="frontElite" value="Platinum" onChange={(e) => props.frontInputsHandler('elite', e.target.value)} />Platinum
+                                        <input type="radio" className="form-check-input" id="platinumRadio" name="frontElite"
+                                            value="Platinum" onChange={(e) => props.frontInputsHandler('elite', e.target.value)}
+                                        />Platinum
                                     </label>
                                 </div>
                                 <div className="form-check-inline">
                                     <label className="form-check-label">
-                                        <input type="radio" className="form-check-input" id="titaniumRadio" name="frontElite" value="Titanium" onChange={(e) => props.frontInputsHandler('elite', e.target.value)} />Titanium
+                                        <input type="radio" className="form-check-input" id="titaniumRadio" name="frontElite"
+                                            value="Titanium" onChange={(e) => props.frontInputsHandler('elite', e.target.value)}
+                                        />Titanium
                                     </label>
                                 </div>
                                 <div className="form-check-inline">
                                     <label className="form-check-label">
-                                        <input type="radio" className="form-check-input" id="ambassadorRadio" name="frontElite" value="Ambassador" onChange={(e) => props.frontInputsHandler('elite', e.target.value)} />Ambassador
+                                        <input type="radio" className="form-check-input" id="ambassadorRadio" name="frontElite"
+                                            value="Ambassador" onChange={(e) => props.frontInputsHandler('elite', e.target.value)}
+                                        />Ambassador
                                     </label>
                                 </div>
                                 <div className="form-check-inline">
                                     <label className="form-check-label">
-                                        <input type="radio" className="form-check-input" name="frontElite" value="" onChange={(e) => props.frontInputsHandler('elite', e.target.value)} defaultChecked />None
+                                        <input type="radio" className="form-check-input" name="frontElite" value=""
+                                            onChange={(e) => props.frontInputsHandler('elite', e.target.value)}
+                                            defaultChecked />None
                                     </label>
                                 </div>
                             </div>
                         </div>
 
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-success form-control" onClick={() => props.click()} data-dismiss="modal">Dispatch</button>
+                            <button type="button" className="btn btn-success form-control" onClick={() => props.click()}
+                                data-dismiss="modal">Dispatch</button>
                         </div>
                     </div>
                 </div>
