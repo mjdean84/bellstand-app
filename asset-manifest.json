@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/bellstand-app/static/css/main.6d2cfba4.chunk.css",
-    "main.js": "/bellstand-app/static/js/main.aefb502a.chunk.js",
-    "main.js.map": "/bellstand-app/static/js/main.aefb502a.chunk.js.map",
+    "main.css": "/bellstand-app/static/css/main.79d19478.chunk.css",
+    "main.js": "/bellstand-app/static/js/main.2c8c57ef.chunk.js",
+    "main.js.map": "/bellstand-app/static/js/main.2c8c57ef.chunk.js.map",
     "runtime-main.js": "/bellstand-app/static/js/runtime-main.52cd42f5.js",
     "runtime-main.js.map": "/bellstand-app/static/js/runtime-main.52cd42f5.js.map",
     "static/js/2.f1dcdc68.chunk.js": "/bellstand-app/static/js/2.f1dcdc68.chunk.js",
     "static/js/2.f1dcdc68.chunk.js.map": "/bellstand-app/static/js/2.f1dcdc68.chunk.js.map",
     "index.html": "/bellstand-app/index.html",
-    "precache-manifest.faeb1ed5240c48a5628b8e58173aefd9.js": "/bellstand-app/precache-manifest.faeb1ed5240c48a5628b8e58173aefd9.js",
+    "precache-manifest.1f807a24756250e2155398f99059c487.js": "/bellstand-app/precache-manifest.1f807a24756250e2155398f99059c487.js",
     "service-worker.js": "/bellstand-app/service-worker.js",
-    "static/css/main.6d2cfba4.chunk.css.map": "/bellstand-app/static/css/main.6d2cfba4.chunk.css.map",
+    "static/css/main.79d19478.chunk.css.map": "/bellstand-app/static/css/main.79d19478.chunk.css.map",
     "static/js/2.f1dcdc68.chunk.js.LICENSE.txt": "/bellstand-app/static/js/2.f1dcdc68.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.52cd42f5.js",
     "static/js/2.f1dcdc68.chunk.js",
-    "static/css/main.6d2cfba4.chunk.css",
-    "static/js/main.aefb502a.chunk.js"
+    "static/css/main.79d19478.chunk.css",
+    "static/js/main.2c8c57ef.chunk.js"
   ]
 }
