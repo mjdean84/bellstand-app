@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "e2cce4bf3474fc3a4c68a7132bf5dee4",
+    "revision": "83660dbe8c6b41f367f0ffd500b9b841",
     "url": "/bellstand-app/index.html"
   },
   {
-    "revision": "ee42057ef5a034860e27",
-    "url": "/bellstand-app/static/css/main.ae7e58cf.chunk.css"
+    "revision": "51075bd5f81ee6cae742",
+    "url": "/bellstand-app/static/css/main.6d2cfba4.chunk.css"
   },
   {
     "revision": "b103769da9b27076fc98",
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/bellstand-app/static/js/2.3a6dabec.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "ee42057ef5a034860e27",
-    "url": "/bellstand-app/static/js/main.36083be8.chunk.js"
+    "revision": "51075bd5f81ee6cae742",
+    "url": "/bellstand-app/static/js/main.0d423c16.chunk.js"
   },
   {
     "revision": "4d8b5c827dbbe57c4e93",
