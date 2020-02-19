@@ -1,0 +1,21 @@
+.App {
+  
+}
+
+body {
+    margin-top: 80px;
+}
+
+section {
+    margin-top: 60px;
+    margin-bottom: 60px;
+}
+
+.hover {
+    cursor: pointer;
+}
+
+[active="true"] {
+    background-color: blue;
+    color: white;
+}
