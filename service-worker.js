@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/bellstand-app/precache-manifest.18577baca4289d2184b990f4a76bf385.js"
+  "/bellstand-app/precache-manifest.669d76b2543bf9ef7b3cbebdd9128a47.js"
 );
 
 self.addEventListener('message', (event) => {
