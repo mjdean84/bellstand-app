@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/bellstand-app/static/css/main.79d19478.chunk.css",
-    "main.js": "/bellstand-app/static/js/main.2c8c57ef.chunk.js",
-    "main.js.map": "/bellstand-app/static/js/main.2c8c57ef.chunk.js.map",
-    "runtime-main.js": "/bellstand-app/static/js/runtime-main.52cd42f5.js",
-    "runtime-main.js.map": "/bellstand-app/static/js/runtime-main.52cd42f5.js.map",
-    "static/js/2.f1dcdc68.chunk.js": "/bellstand-app/static/js/2.f1dcdc68.chunk.js",
-    "static/js/2.f1dcdc68.chunk.js.map": "/bellstand-app/static/js/2.f1dcdc68.chunk.js.map",
-    "index.html": "/bellstand-app/index.html",
-    "precache-manifest.1f807a24756250e2155398f99059c487.js": "/bellstand-app/precache-manifest.1f807a24756250e2155398f99059c487.js",
-    "service-worker.js": "/bellstand-app/service-worker.js",
-    "static/css/main.79d19478.chunk.css.map": "/bellstand-app/static/css/main.79d19478.chunk.css.map",
-    "static/js/2.f1dcdc68.chunk.js.LICENSE.txt": "/bellstand-app/static/js/2.f1dcdc68.chunk.js.LICENSE.txt"
+    "main.css": "/bellstand-firebase/static/css/main.65b6ea34.chunk.css",
+    "main.js": "/bellstand-firebase/static/js/main.2d02fdca.chunk.js",
+    "main.js.map": "/bellstand-firebase/static/js/main.2d02fdca.chunk.js.map",
+    "runtime-main.js": "/bellstand-firebase/static/js/runtime-main.98f61946.js",
+    "runtime-main.js.map": "/bellstand-firebase/static/js/runtime-main.98f61946.js.map",
+    "static/js/2.ef2a5c83.chunk.js": "/bellstand-firebase/static/js/2.ef2a5c83.chunk.js",
+    "static/js/2.ef2a5c83.chunk.js.map": "/bellstand-firebase/static/js/2.ef2a5c83.chunk.js.map",
+    "index.html": "/bellstand-firebase/index.html",
+    "precache-manifest.55ef8eec86549d7aadfbafb16cb76714.js": "/bellstand-firebase/precache-manifest.55ef8eec86549d7aadfbafb16cb76714.js",
+    "service-worker.js": "/bellstand-firebase/service-worker.js",
+    "static/css/main.65b6ea34.chunk.css.map": "/bellstand-firebase/static/css/main.65b6ea34.chunk.css.map",
+    "static/js/2.ef2a5c83.chunk.js.LICENSE.txt": "/bellstand-firebase/static/js/2.ef2a5c83.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.52cd42f5.js",
-    "static/js/2.f1dcdc68.chunk.js",
-    "static/css/main.79d19478.chunk.css",
-    "static/js/main.2c8c57ef.chunk.js"
+    "static/js/runtime-main.98f61946.js",
+    "static/js/2.ef2a5c83.chunk.js",
+    "static/css/main.65b6ea34.chunk.css",
+    "static/js/main.2d02fdca.chunk.js"
   ]
 }
