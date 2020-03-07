@@ -74,14 +74,14 @@ const editModal = (props) => {
 								<input type="radio" className="form-check-input" id="checkInRadio" name="frontType" value="Check In"
 									checked={props.front.type === 'Check In'}
 									onChange={() => props.editType('Check In')}/>Check In
-                                </label>
+                            </label>
 						</div>
 						<div className="form-check-inline">
 							<label className="form-check-label">
 								<input type="radio" className="form-check-input" id="checkOutRadio" name="frontType" value="Check Out"
 									checked={props.front.type === 'Check Out'}
-									onChange={() => props.editType('Check Out')}
-								/>Check Out</label>
+									onChange={() => props.editType('Check Out')} />Check Out
+							</label>
 						</div>
 						<div className="row">
 							<div className="col">
@@ -151,7 +151,11 @@ const editModal = (props) => {
 						</div>
 					</div>
 					<div className="modal-footer">
-						<button className="btn btn-success form-control" data-dismiss={isValid}>Done</button>
+						<button
+							className="btn btn-success form-control"
+							data-dismiss={isValid}
+							onClick={() => props.putFronts()}
+						>Done</button>
 					</div>
 				</div>
 			</div>

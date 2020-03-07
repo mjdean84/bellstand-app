@@ -7,7 +7,8 @@ class Front {
         this.bags = bags;
         this.comment = comment;
         this.eliteStatus = eliteStatus;
-        this.time = new Date();
+        this.date = new Date().toLocaleDateString();
+        this.time = new Date().toLocaleString();
         this.bellman = null;
         this.status = 'Pending';
         this.timeCompleted = null;

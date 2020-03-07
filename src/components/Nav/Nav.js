@@ -24,8 +24,8 @@ const nav = (props) => {
                         <li className="nav-item">
                             <button className="nav-link btn" onClick={() => props.click('completed')}>Completed</button>
                         </li>
-                        <li className="nav-item active">
-                            <button className="nav-link btn btn-primary" onClick={() => toggleFronts()} data-toggle="modal" data-target="#frontModal">Add Request</button>
+                        <li className="nav-item">
+                            <button className="nav-link btn btn-success text-white" onClick={() => toggleFronts()} data-toggle="modal" data-target="#frontModal">Add Request</button>
                         </li>
                     </ul>
                 </div>

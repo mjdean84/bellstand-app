@@ -4,6 +4,7 @@
 
 body {
     margin-top: 80px;
+    margin-bottom: 80px;
 }
 
 section {
@@ -18,4 +19,15 @@ section {
 [active="true"] {
     background-color: blue;
     color: white;
+}
+
+#aveTime {
+    text-align: center;
+    width: 13vw;
+    position: fixed;
+    right: 0;
+    z-index:100;
+    padding: 10px;
+    border-radius: 10px;
+    background: rgba(128, 128, 128, 0.8);
 }

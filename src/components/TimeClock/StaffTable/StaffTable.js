@@ -40,8 +40,7 @@ const staffTable = (props) => {
                 <table className="table">
                     <thead className="bg-light">
                         <tr>
-                            <th>Last Name</th>
-                            <th>First Name</th>
+                            <th>Name</th>
                             <th>Position</th>
                             <th>Time In</th>
                             <th>Status Updated</th>
@@ -55,8 +54,7 @@ const staffTable = (props) => {
                                     key={index}
                                     click={() => props.click(index)}
                                     active={bellman.active}
-                                    lastName={bellman.lastName}
-                                    firstName={bellman.firstName}
+                                    name={bellman.name}
                                     position={bellman.position}
                                     timeIn={bellman.timeIn}
                                     statusUpdated={bellman.statusUpdated}

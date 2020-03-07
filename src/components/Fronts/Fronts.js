@@ -5,39 +5,25 @@ import FrontModal from './FrontModal/FrontModal';
 import EditModal from './EditModal/EditModal';
 
 const fronts = (props) => {
-    let pendingClass;
     let pendingFronts = 0;
+    let assignedFronts = 0;
+
     props.fronts.forEach(front => {
         if (front.status === 'Pending') {
             pendingFronts++;
         }
-    })
-    if (pendingFronts === 0) {
-        pendingClass = 'd-none';
-    } else {
-        pendingClass = 'd-block';
-    }
-
-    let assignedClass;
-    let assignedFronts = 0;
-    props.fronts.forEach(front => {
-        if (front.status === 'Assigned') {
+        else if (front.status === 'Assigned') {
             assignedFronts++;
         }
     })
-    if (assignedFronts === 0) {
-        assignedClass = 'd-none';
-    } else {
-        assignedClass = 'd-block';
-    }
 
     return (
         <section className={props.class}>
             <div className="container">
                 <h1 className="display-3 text-center">Service Requests</h1>
                 <hr />
-                <button className="btn btn-primary" id="addFrontBtn" data-toggle="modal" data-target="#frontModal">Add Request</button>
-                <div className={pendingClass}>
+                <button className="btn btn-success" id="addFrontBtn" data-toggle="modal" data-target="#frontModal">Add Request</button>
+                <div hidden={pendingFronts === 0}>
                     <h1 className="mt-3">Pending</h1>
                     <table className="table table-hover text-capitalize">
                         <thead className="bg-light">
@@ -54,7 +40,7 @@ const fronts = (props) => {
                         </thead>
                         <tbody className="bg-white hover">
                             {props.fronts.map((front, index) => {
-                                let time = Math.floor((props.currentTime.getTime() - front.time.getTime()) / 1000 / 60);
+                                let time = Math.floor((props.currentTime.getTime() - new Date(front.time).getTime()) / 1000 / 60);
                                 if (time < 0) {
                                     time = 0;
                                 }
@@ -78,7 +64,7 @@ const fronts = (props) => {
                     </table>
                 </div>
 
-                <div className={assignedClass}>
+                <div hidden={assignedFronts === 0}>
                     <h1 className="mt-3">Assigned</h1>
                     <table className="table table-hover text-capitalize hover">
                         <thead className="bg-light">
@@ -97,14 +83,14 @@ const fronts = (props) => {
                         <tbody className="bg-white">
                             {props.fronts.map((front, index) => {
                                 if (front.status === 'Assigned') {
-                                    let time = Math.floor((props.currentTime.getTime() - front.time.getTime()) / 1000 / 60);
+                                    let time = Math.floor((props.currentTime.getTime() - new Date(front.time).getTime()) / 1000 / 60);
                                     if (time < 0) {
                                         time = 0;
                                     }
                                     return (
                                         <tr key={front.time} data-toggle="modal" data-target="#completeModal" onClick={() => props.frontClick(index)}>
                                             <td id={front.time}>{time}</td>
-                                            <td>{front.bellman.fullName}</td>
+                                            <td>{front.bellman}</td>
                                             <td>{front.room}</td>
                                             <td>{front.name}</td>
                                             <td>{front.type}</td>
@@ -131,10 +117,15 @@ const fronts = (props) => {
                                 <button className="btn btn-success form-control my-1" onClick={props.confirmCancel}
                                     data-dismiss="modal">Yes</button>
                                 <button className="btn btn-danger form-control my-1" data-dismiss="modal">No</button>
-                                <button className="btn btn-info form-control my-1" onClick={() => props.assignFront('pending')}
+                                
+                            </div>
+                            <div className="modal-footer">
+                                <button className="btn btn-info my-1" onClick={() => props.assignFront('pending')}
                                     data-dismiss="modal">Pending</button>
-                                <button className="btn btn-secondary form-control my-1" data-dismiss="modal"
+                                <button className="btn btn-secondary my-1" data-dismiss="modal"
                                     data-toggle="modal" data-target="#editModal">Edit</button>
+                                <button className="btn btn-danger m-1" data-dismiss="modal" data-toggle="modal"
+                                    data-target="#confirmCancelModal">Cancel Front</button>
                             </div>
                         </div>
                     </div>
@@ -142,10 +133,8 @@ const fronts = (props) => {
 
 
                 <FrontModal
-                    click={props.click}
+                    addFrontHandler={props.addFrontHandler}
                     typeSelect={props.typeSelect}
-                    frontInputs={props.frontInputs}
-                    frontInputsHandler={props.frontInputsHandler}
                 />
                 <AssignModal
                     bellmen={props.bellmen}
@@ -158,9 +147,19 @@ const fronts = (props) => {
                     editInputs={props.editInputs}
                     editType={props.editType}
                     click={props.editClick}
+                    putFronts={props.putFronts}
                 />
             </div>
         </section>
     )
 }
 export default fronts;
+
+/*
+                    <div className="text-center">
+                        <button className="btn btn-secondary mx-3" disabled={props.activeFront}>Complete</button>
+                        <button className="btn btn-secondary mx-3">Pending</button>
+                        <button className="btn btn-secondary mx-3">Edit</button>
+                        <button className="btn btn-secondary mx-3">Cancel Front</button>
+                    </div>
+                    */

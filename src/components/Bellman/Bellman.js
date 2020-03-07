@@ -1,8 +1,6 @@
 class Bellman {
-    constructor(lastName, firstName, position) {
-        this.lastName = lastName;
-        this.firstName = firstName;
-        this.fullName = firstName + ' ' + lastName;
+    constructor(name, position) {
+        this.name = name;
         this.position = position;
         this.status = "Available";
         this.active = "false";

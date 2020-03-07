@@ -27,8 +27,7 @@ const assignModal = (props) => {
                             <table className="table text-capitalize">
                                 <thead>
                                     <tr>
-                                        <th>Last Name</th>
-                                        <th>First Name</th>
+                                        <th>Name</th>
                                         <th>Status</th>
                                     </tr>
                                 </thead>
@@ -38,8 +37,7 @@ const assignModal = (props) => {
                                             if (bellman.status === "Available" || bellman.status === "Busy") {
                                                 return (
                                                     <tr key={index} onClick={() => props.bellmanClick(index)} active={bellman.active}>
-                                                        <td>{bellman.lastName}</td>
-                                                        <td>{bellman.firstName}</td>
+                                                        <td>{bellman.name}</td>
                                                         <td>{bellman.status}</td>
                                                     </tr>
                                                 )

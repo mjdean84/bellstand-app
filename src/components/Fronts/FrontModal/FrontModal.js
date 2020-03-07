@@ -1,37 +1,90 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const frontModal = (props) => {
-    /*
-    let ticketInput = null;
-    if (props.frontInputs.type === 'Check In') {
-        ticketInput =
-        <div className="row">
-            <div className="col-md-6">
-                <div className="form-group">
-                    <label htmlFor="ticketNumber">Ticket:</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        id="ticketNumber"
-                        placeholder="Ticket #"
-                        onChange={(e) => props.frontInputsHandler('ticket', e.target.value)}
-                    />
-                    <p className="text-danger">{props.frontInputs.ticketError}</p>
-                </div>
-            </div>
-            <div className="col-md-3">
-                <div className="form-group">
-                    <label htmlFor="#numBags">Number of Bags:</label>
-                    <input type="number" className="form-control" id="numBags" min="1"
-                        onChange={(e) => props.frontInputsHandler('bags', e.target.value)} />
-                    <p className="text-danger">{props.frontInputs.bagsError}</p>
-                </div>
-            </div>
-        </div>
-    } else {
-        ticketInput = null;
+import Front from '../Front/Front';
+
+const FrontModal = (props) => {
+
+    const [inputs, setInputs] = useState({
+        frontType: '',
+        roomNumber: '',
+        guestName: '',
+        ticketNumber: '',
+        numberOfBags: '',
+        comment: '',
+        membership: ''
+    });
+
+    const [validators, setValidators] = useState({
+        typeError: '',
+        roomError: '',
+        nameError: '',
+        ticketError: '',
+        bagsError: ''
+    });
+
+    const validateInputs = () => {
+        let returnMessage = true;
+
+        let typeError = '';
+        let roomError = '';
+        let nameError = '';
+        let ticketError = '';
+        let bagsError = '';
+
+        const message = '*Required';
+
+        if (!inputs.frontType) {
+            typeError = message;
+            returnMessage = false;
+        }
+        if (!inputs.roomNumber) {
+            roomError = message;
+            returnMessage = false;
+        }
+        if (!inputs.guestName) {
+            nameError = message;
+            returnMessage = false;
+        }
+        if (inputs.frontType === 'Check In' && !inputs.ticketNumber) {
+            ticketError = message;
+            returnMessage = false;
+        }
+        if (inputs.frontType === 'Check In' && !inputs.numberOfBags) {
+            bagsError = message;
+            returnMessage = false;
+        }
+        setValidators({
+            typeError: typeError,
+            roomError: roomError,
+            nameError: nameError,
+            ticketError: ticketError,
+            bagsError: bagsError
+        });
+        return returnMessage;
     }
-    */
+
+    const addFront = () => {
+        if (validateInputs()) {
+            const front = new Front(inputs.frontType, inputs.roomNumber, inputs.guestName, inputs.ticketNumber,
+                inputs.numberOfBags, inputs.comment, inputs.membership);
+            props.addFrontHandler(front);
+            
+            setInputs({
+                frontType: '',
+                roomNumber: '',
+                guestName: '',
+                ticketNumber: '',
+                numberOfBags: '',
+                comment: '',
+                membership: ''
+            });
+
+            document.getElementById('frontForm').reset();
+        }
+        else {
+            document.getElementById('addFrontBtn').click();
+        }
+    }
 
     return (
         <form id="frontForm">
@@ -49,16 +102,16 @@ const frontModal = (props) => {
                                 <div className="form-check-inline">
                                     <label className="form-check-label">
                                         <input type="radio" className="form-check-input" id="checkInRadio" name="frontType"
-                                            value="Check In" onClick={() => props.typeSelect('Check In')} />Check In
+                                            value="Check In" onClick={() => setInputs({ ...inputs, frontType: 'Check In' })} />Check In
                                     </label>
                                 </div>
                                 <div className="form-check-inline">
                                     <label className="form-check-label">
                                         <input type="radio" className="form-check-input" id="checkOutRadio" name="frontType"
-                                            value="Check Out" onClick={() => props.typeSelect('Check Out')} />Check Out
+                                            value="Check Out" onClick={() => setInputs({ ...inputs, frontType: 'Check Out' })} />Check Out
                                     </label>
                                 </div>
-                                <p className="text-danger">{props.frontInputs.typeError}</p>
+                                <p className="text-danger">{validators.typeError}</p>
                             </div>
                             <div className="row">
                                 <div className="col">
@@ -69,10 +122,10 @@ const frontModal = (props) => {
                                             className="form-control"
                                             id="frontRoom"
                                             placeholder="Room #"
-                                            onChange={(e) => props.frontInputsHandler('room', e.target.value)}
-                                            value={props.frontInputs.room}
+                                            onChange={(e) => setInputs({ ...inputs, roomNumber: e.target.value })}
+                                            value={inputs.roomNumber || ''}
                                         />
-                                        <p className="text-danger">{props.frontInputs.roomError}</p>
+                                        <p className="text-danger">{validators.roomError}</p>
                                     </div>
                                 </div>
                                 <div className="col">
@@ -83,15 +136,15 @@ const frontModal = (props) => {
                                             className="form-control"
                                             id="frontName"
                                             placeholder="Last Name"
-                                            onChange={(e) => props.frontInputsHandler('name', e.target.value)}
-                                            value={props.frontInputs.name}
+                                            onChange={(e) => setInputs({ ...inputs, guestName: e.target.value })}
+                                            value={inputs.guestName || ''}
                                         />
-                                        <p className="text-danger">{props.frontInputs.nameError}</p>
+                                        <p className="text-danger">{validators.nameError}</p>
                                     </div>
                                 </div>
                             </div>
 
-                            <div hidden={props.frontInputs.type !== 'Check In'}>
+                            <div hidden={inputs.frontType !== 'Check In'}>
                                 <div className="row">
                                     <div className="col-md-6">
                                         <div className="form-group">
@@ -101,17 +154,17 @@ const frontModal = (props) => {
                                                 className="form-control"
                                                 id="ticketNumber"
                                                 placeholder="Ticket #"
-                                                onChange={(e) => props.frontInputsHandler('ticket', e.target.value)}
+                                                onChange={(e) => setInputs({ ...inputs, ticketNumber: e.target.value })}
                                             />
-                                            <p className="text-danger">{props.frontInputs.ticketError}</p>
+                                            <p className="text-danger">{validators.ticketError}</p>
                                         </div>
                                     </div>
                                     <div className="col-md-3">
                                         <div className="form-group">
                                             <label htmlFor="#numBags">Number of Bags:</label>
                                             <input type="number" className="form-control" id="numBags" min="1"
-                                                onChange={(e) => props.frontInputsHandler('bags', e.target.value)} />
-                                            <p className="text-danger">{props.frontInputs.bagsError}</p>
+                                                onChange={(e) => setInputs({ ...inputs, numberOfBags: e.target.value })} />
+                                            <p className="text-danger">{validators.bagsError}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -125,8 +178,7 @@ const frontModal = (props) => {
                                             id="frontComment"
                                             rows="2"
                                             placeholder="Comment..."
-                                            onChange={(e) => props.frontInputsHandler('comment', e.target.value)}
-                                            value={props.frontInputs.comment}
+                                            onChange={(e) => setInputs({ ...inputs, comment: e.target.value })}
                                         />
                                     </div>
                                 </div>
@@ -136,34 +188,36 @@ const frontModal = (props) => {
                             <div id="membershipRadios">
                                 <div className="form-check-inline">
                                     <label className="form-check-label">
-                                        <input type="radio" className="form-check-input" id="eliteRadio" name="frontElite" value="Elite" onChange={(e) => props.frontInputsHandler('elite', e.target.value)} />Elite
+                                        <input type="radio" className="form-check-input" id="eliteRadio" name="frontElite"
+                                            value="Elite" onChange={(e) => setInputs({ ...inputs, membership: e.target.value })}
+                                        />Elite
                                     </label>
                                 </div>
                                 <div className="form-check-inline">
                                     <label className="form-check-label">
                                         <input type="radio" className="form-check-input" id="platinumRadio" name="frontElite"
-                                            value="Platinum" onChange={(e) => props.frontInputsHandler('elite', e.target.value)}
+                                            value="Platinum" onChange={(e) => setInputs({ ...inputs, membership: e.target.value })}
                                         />Platinum
                                     </label>
                                 </div>
                                 <div className="form-check-inline">
                                     <label className="form-check-label">
                                         <input type="radio" className="form-check-input" id="titaniumRadio" name="frontElite"
-                                            value="Titanium" onChange={(e) => props.frontInputsHandler('elite', e.target.value)}
+                                            value="Titanium" onChange={(e) => setInputs({ ...inputs, membership: e.target.value })}
                                         />Titanium
                                     </label>
                                 </div>
                                 <div className="form-check-inline">
                                     <label className="form-check-label">
                                         <input type="radio" className="form-check-input" id="ambassadorRadio" name="frontElite"
-                                            value="Ambassador" onChange={(e) => props.frontInputsHandler('elite', e.target.value)}
+                                            value="Ambassador" onChange={(e) => setInputs({ ...inputs, membership: e.target.value })}
                                         />Ambassador
                                     </label>
                                 </div>
                                 <div className="form-check-inline">
                                     <label className="form-check-label">
                                         <input type="radio" className="form-check-input" name="frontElite" value=""
-                                            onChange={(e) => props.frontInputsHandler('elite', e.target.value)}
+                                            onChange={(e) => setInputs({ ...inputs, membership: e.target.value })}
                                             defaultChecked />None
                                     </label>
                                 </div>
@@ -171,7 +225,7 @@ const frontModal = (props) => {
                         </div>
 
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-success form-control" onClick={() => props.click()}
+                            <button type="button" className="btn btn-success form-control" onClick={() => addFront()}
                                 data-dismiss="modal">Dispatch</button>
                         </div>
                     </div>
@@ -181,4 +235,4 @@ const frontModal = (props) => {
         )
 }
 
-export default frontModal;
+export default FrontModal;
